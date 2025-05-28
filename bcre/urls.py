@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from debug_toolbar.toolbar import debug_toolbar_urls
 
-urlpatterns = [                                             #list入面有function
-    path('', include('pages.urls', namespace='pages')),      #見到''行pages.urls ; namespace=分別level app既index ; eg. product:index/ pages.index
-    path('admin/', admin.site.urls),                         #見到admin
-]
+urlpatterns = [                                                     #list入面有function
+    path('', include('pages.urls', namespace='pages')),             #網址打''行pages.urls ; namespace=分別level app既index ; eg. product:index/ pages.index
+    path('listings/', include('listings.urls', namespace='listings')),    
+    path('admin/', admin.site.urls),                         #網址打admin
+] + debug_toolbar_urls()
 
 
