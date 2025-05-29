@@ -17,11 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from debug_toolbar.toolbar import debug_toolbar_urls
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [                                                     #list入面有function
     path('', include('pages.urls', namespace='pages')),             #網址打''行pages.urls ; namespace=分別level app既index ; eg. product:index/ pages.index
     path('listings/', include('listings.urls', namespace='listings')),    
     path('admin/', admin.site.urls),                         #網址打admin
-] + debug_toolbar_urls()
+] + debug_toolbar_urls() + static(settings.MEDIA_URL,document_root =settings.MEDIA_ROOT)        # ]外 = internal
 
 
