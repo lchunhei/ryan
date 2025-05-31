@@ -2,24 +2,25 @@ from django.db import models
 from django.utils import timezone
 from realtors.models import Realtor
 from datetime import datetime
+from django.forms import NumberInput
 
 # Create your models here.
 
-class Listing(models.Model):        #rmb應該係Listing 
-    realtor = models.ForeignKey(Realtor, on_delete=models.DO_NOTHING)
-    title = models.CharField(max_length=200)
-    price = models.IntegerField()
+class Listing(models.Model):       
+    realtor = models.ForeignKey(Realtor, on_delete=models.DO_NOTHING)       #listing副指去主;  if del listing , do not del realtor 
+    title = models.CharField(max_length=200)                    #短文本
+    price = models.IntegerField()                               
     address = models.CharField(max_length=200)
     street = models.CharField(max_length=200)
     district = models.CharField(max_length=50)
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True)                  #長文本
     bedrooms = models.IntegerField()
     bathrooms = models.DecimalField(max_digits=2, decimal_places=1)
     clubhouse = models.IntegerField()
     sqrt = models.IntegerField()
     estate_size = models.FloatField(default=0.0)
     is_published = models.BooleanField(default=True)
-    list_date = models.DateField(auto_now_add=True)
+    list_date = models.DateField(auto_now_add=True)             #不會顯示data 
     phtoto_main = models.ImageField(upload_to='photos/%Y/%m/%d/')
     photo_1 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     photo_2 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
@@ -27,7 +28,8 @@ class Listing(models.Model):        #rmb應該係Listing
     photo_4 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     photo_5 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     photo_6 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
-
+    formfield_overrides = {
+        models.IntegerField: {'widget' : NumberInput (attrs= {'size' : '10'})}}    #integear field先有我10，可整加charfield 
 
     class Meta:
         ordering = ('-list_date',)

@@ -24,6 +24,6 @@ urlpatterns = [                                                     #list入面�
     path('', include('pages.urls', namespace='pages')),             #網址打''行pages.urls ; namespace=分別level app既index ; eg. product:index/ pages.index
     path('listings/', include('listings.urls', namespace='listings')),    
     path('admin/', admin.site.urls),                         #網址打admin
-] + debug_toolbar_urls() + static(settings.MEDIA_URL,document_root =settings.MEDIA_ROOT)        # ]外 = internal
+] + debug_toolbar_urls() + static(settings.MEDIA_URL,document_root =settings.MEDIA_ROOT)     # ]外面 = internal ; =go to setting file to find media url and media root
 
 
