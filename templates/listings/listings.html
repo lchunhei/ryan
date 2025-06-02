@@ -23,7 +23,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href= {% url 'pages:index' %}> <i class="fas fa-home"></i> Home</a>        <!--fix this link-->
+              <a href= {% url 'pages:index' %}> <i class="fas fa-home"></i> Home</a>        <!--fixed-->
             </li>
             <li class="breadcrumb-item active">Browse Listings</li>
           </ol>
@@ -35,17 +35,17 @@
     <section id="listings" class="py-4">
       <div class="container">
         <div class="row">
-            {% if listings %}
-            {% for listing in listings %}                <!--from listings' view-->
+            {% if listings %}                           <!--係views'拎既 database; 如果有data-->
+            {% for listing in listings %}                <!--左邊 新開叫listing(i)； 右邊係database既listings-->
           <!-- Listing 1 -->
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="card listing-preview">
               <img
                 class="card-img-top" 
-                src= {{ listing.phtoto_main.url}}
+                src= {{ listing.phtoto_main.url}}                 
                 alt=""
-              />                                            
-              <!--fixed-->
+              />                                     <!--因為for loop由listings db pass左入去listing, 所以每個data已經叫listing.-->
+                                                                        <!--fixed-->
               <div class="card-img-overlay">
                 <h2>
                   <span class="badge badge-secondary text-white"
@@ -91,7 +91,7 @@
                 <hr />   
                                             <!--fix this link, use lisitng.id-->
                 <a href= {% url 'listings:listing' listing.id %} class="btn btn-primary btn-block">More Info</a>
-              </div>                                             <!--listing id = listing table既id-->
+              </div>                                             <!--張圖顯示既資料都係一樣，所以用listing id = listing table既id-->
             </div>
           </div>
           {% endfor %}
@@ -106,30 +106,33 @@
         <!--Pagination-->
         <div class="row">
           <div class="col-md-12">
-            {% if listings.has_other_pages %}        <!--more than 1 page show, if list no data or only 1 page , dont show pagination-->
+          {% if listings.has_other_pages %}        <!-- 'listings'係 views' context中的key,入面帶住database value ; more than 1 page show, if list no data or only 1 page , dont show pagination-->
             <ul class="pagination">
-                {% if listings.has_previous %}      <!-- button 《: if have previous (not no .1) -->
-                 <li class="page-item">                      <!-- button 《 唔需要著燈-->
+            {% if listings.has_previous %}           <!-- button制前一頁 -->
+                 <li class="page-item">              <!-- button正常-->
                     <a class="page-link" href="?page={{listings.previous_page_number}}" >&laquo;</a>  <!--then button 《去前一頁-->
                  </li>
                 {% else %}
-              <li class="page-item disabled">                   <!--else 《 button disabled-->
-                <a class="page-link" href="#">&laquo;</a>                  <!-- else, # = 唔去-->
+              <li class="page-item disabled">                   <!--else 《 button 灰左-->
+                <a class="page-link" href="#">&laquo;</a>       <!-- else, # = 唔去-->
               </li>
                 {% endif %}
-              {% for i in listings.paginator.page_range %}              <!--page_range?-->
-              {% if listings.number == i %}                    <!--如果for loop if 相同page, show same page no.-->
-              <li class="page-item active">                   <!--著燈-->
-                <a class="page-link"> {{i}} </a>            <!--無去href LINK，只SHOW current page no.-->
+
+
+              {% for i in listings.paginator.page_range %}     <!--db listings返回所有頁數RANGE(分左件後) to i-->
+              {% if listings.number == i %}                    <!-- 當前頁數 ；(IF) -->
+              <li class="page-item active">                   <!--如果係當前頁 - 著燈-->
+                <a class="page-link"> {{i}} </a>            <!-- NO href link，只SHOW current page no.-->
               </li>
               {% else %}
-              <li class="page-item">                                       <!-- 無特別著燈，-->
-                <a class="page-link" href='?page={{i}}'> {{i}} </a>     <!--1,2,3 button有link去其他page -->
-              </li>                                        <!--? 會去database +  page = vari ;  page=4 -> page(=VAR)=4(=VALUE) ; database -> to request = {page= 4} -->
+              <li class="page-item">                                       
+                <a class="page-link" href='?page={{i}}'> {{i}} </a>     <!-- have href link, 1,2,3 button左下角有link -->
+              </li>                                        <!--? 會去database +  page = vari ;  page=4 -> page(=VAR); 4(=VALUE) ; database -> to request = {page= 4} -->
               {% endif %}
               {% endfor %}
 
-              {% if listings.has.next %}                        <!-- if 》 have next (not last page) -->
+
+              {% if listings.has_next %}                        <!-- button制下一頁 -->
               <li class="page-item">
                 <a class="page-link" href="?page={{listings.next_page_number}}">&raquo;</a>     <!--then 》 去下一頁-->
               </li>
@@ -138,6 +141,7 @@
                 <a class="page-link" href="#">&raquo;</a>           <!-- else, # = 唔去-->
               </li>
               {% endif %}
+              
             </ul>
             {% endif %}
           </div>

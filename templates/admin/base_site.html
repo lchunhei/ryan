@@ -1,9 +1,10 @@
-{% extends "admin/base.html" %} {% load static %}
-{% block branding %}
+{% extends "admin/base.html" %}      <!--後台admin, overwrite virtualenv admin/base.html, pyenv-> django/contrib/admin/templates/admin/base.html-->
+{% load static %}
+{% block branding %}                            <!--覆盖顶部左侧的品牌标识-->
 
-<h1 class="head">
+<h1 class="head">                               <!--加LOGO-->
     <img 
-    src="{% static 'img/logo.png' %}"
+    src= {% static 'img/logo.png' %}                   
     alt="BC Real Estate" 
     class="brand_img" 
     height="50" 
@@ -12,6 +13,7 @@
     BC Real Estate Admin area
 </h1>
 {% endblock branding %}  
-{% block extrastyle %}
+
+{% block extrastyle %}                          <!--专门用于添加 CSS 样式-->
 <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
 {% endblock extrastyle %}  

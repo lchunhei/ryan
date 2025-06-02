@@ -148,5 +148,5 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')            #實際fiLE地點
+MEDIA_URL = '/media/'                           #浏览器访问時 去的URL

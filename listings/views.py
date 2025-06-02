@@ -5,13 +5,12 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 def index(request):
-    listings = Listing.objects.all()          # from sql拎all   每禁一次，都會行一次，for show most updated info
-    paginator = Paginator(listings, 3)        #from sql , 分件   #先上面拎data, 經過PAG分類;  (）係class, 3間為一組
-    page = request.GET.get('page')            #from font come back, 知道邊份    #GET係method,  var=page, 
-    paged_listings = paginator.get_page(page)   #選擇邊一份，放入website     #from sq拎咩,       右邊page= no.;  其實係用上面 (9)paginator.get_page(page 10)
-    context = {'listings' : paged_listings}                         #dictionary
-    return render (request, 'listings/listings.html', context)
-
+    listings = Listing.objects.all()          #由model's class Listing 拎database ;  (每禁一次，都會行一次，for show most updated info)
+    paginator = Paginator(listings, 3)        #對於backend 用pagc分件上面data (listings's model 全部key為一組) 
+    page = request.GET.get('page')            #從frontend咩page, 知道邊份    #GET係method,  var=page, 
+    paged_listings = paginator.get_page(page)  #back front 結合，選擇邊一份放入website     
+    context = {'listings' : paged_listings}                         #左=key(隨便比), 右=value(database) -> 之後listings.html會用database既listings
+    return render (request, 'listings/listings.html', context)      #context係動態數據（已經入左listings.html)
 
 def listing(request,listing_id):                #listing_id 係sql自動gen
     return render (request, 'listings/listing.html')

@@ -1,13 +1,11 @@
 from django.db import models
-from django.utils import timezone
 from realtors.models import Realtor
-from datetime import datetime
-from django.forms import NumberInput
 
 # Create your models here.
 
-class Listing(models.Model):       
-    realtor = models.ForeignKey(Realtor, on_delete=models.DO_NOTHING)       #listing副指去主;  if del listing , do not del realtor 
+class Listing(models.Model):
+    list_date = models.DateField(auto_now_add=True)                             #記得當時创建日期，會用黎做排序，不會顯示data 
+    realtor = models.ForeignKey(Realtor, on_delete=models.DO_NOTHING)       # realtor出name因為realtor model's self name   + listing副指去主;  if del listing , 不影響del realtor 
     title = models.CharField(max_length=200)                    #短文本
     price = models.IntegerField()                               
     address = models.CharField(max_length=200)
@@ -20,7 +18,6 @@ class Listing(models.Model):
     sqrt = models.IntegerField()
     estate_size = models.FloatField(default=0.0)
     is_published = models.BooleanField(default=True)
-    list_date = models.DateField(auto_now_add=True)             #不會顯示data 
     phtoto_main = models.ImageField(upload_to='photos/%Y/%m/%d/')
     photo_1 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     photo_2 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
@@ -28,12 +25,10 @@ class Listing(models.Model):
     photo_4 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     photo_5 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     photo_6 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
-    formfield_overrides = {
-        models.IntegerField: {'widget' : NumberInput (attrs= {'size' : '10'})}}    #integear field先有我10，可整加charfield 
 
     class Meta:
-        ordering = ('-list_date',)
-        indexes = [models.Index(fields=['list_date'])]
+        ordering = ('-list_date',)                          #database用list_date黎排, 要黎web行快d
+        indexes = [models.Index(fields=['list_date'])]          #为 list_date 创建索引
 
     def __str__(self):
         return self.title
