@@ -6,7 +6,7 @@ from realtors.models import Realtor
 
 # Create your views here.
 def index(request):
-    listings = Listing.objects.order_by('-list_date').filter(is_published=True)[:3]     #= 有[:3]先正式開動
+    listings = Listing.objects.order_by('-list_date').filter(is_published=True)[:3]     #拎DB, 最新list+(filter)is_pusblished ; **有[:3]先正式開動
     context = {'listings' : listings }                              #same as morning    
     #pages_url = reverse('pages:index')
     return render(request,'pages/index.html', context)          #render - 一定會去templates file's pages' index

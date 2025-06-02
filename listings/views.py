@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from listings.models import Listing
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 # Create your views here.
@@ -13,7 +13,9 @@ def index(request):
     return render (request, 'listings/listings.html', context)      #context係動態數據（已經入左listings.html)
 
 def listing(request,listing_id):                #listing_id 係sql自動gen
-    return render (request, 'listings/listing.html')
+    listing = get_object_or_404(Listing,pk=listing_id)   #object=manager; Listing=database + search by id; ***no need all database, only need 1 record
+    context = {'listing' : listing}                     #no for loop, naming:listing no need +s
+    return render (request, 'listings/listing.html', context)
 
 
 def search(request):
