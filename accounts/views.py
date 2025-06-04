@@ -42,6 +42,7 @@ def login(request):
             auth.login(request, user)           #login
             messages.success(request, 'You are now logged in ! ')
             return redirect('accounts:dashboard')           #如果成功去dashboard
+            
         else:
             messages.error(request, 'Invalid credentials ! ')
             return redirect('accounts:login')
@@ -49,8 +50,11 @@ def login(request):
         return render(request, 'accounts/login.html')
 
 
-def logout(request):
-    return redirect (request, 'accounts/logout.html')
+def logout(request):        
+    if request.method == 'POST':            #目的：想佢用button link,唔係打link
+        auth.logout(request)
+        #messages.success(request, 'You are now logged out !' )   #index無位，所以唔show
+    return redirect ('pages:index')
 
 
 def dashboard(request):
