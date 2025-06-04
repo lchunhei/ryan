@@ -22,7 +22,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [                                                     #list入面有function
     path('', include('pages.urls', namespace='pages')),             #namespace=將所有相關入pages + 配合pages url -> 定義app_name叫pages (如果定義左namespace可以唔加)
-    path('listings/', include('listings.urls', namespace='listings')),      
+    path('listings/', include('listings.urls', namespace='listings')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),      #一次分流
     path('admin/', admin.site.urls),                         #網址打admin
 ] + debug_toolbar_urls() + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)     # ]外面 = internal ; =go to setting file to find media url and media root
 

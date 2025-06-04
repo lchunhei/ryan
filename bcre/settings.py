@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from dotenv import load_dotenv  #"dotenv": Unknown word.
+from dotenv import load_dotenv  
 import os
+from django.contrib.messages import constants as messages
 
-load_dotenv()   #"dotenv": Unknown word.
+
+load_dotenv()   
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'listings.apps.ListingsConfig',
     'realtors.apps.RealtorsConfig',
+    'accounts.apps.AccountsConfig',
 
 
 ]
@@ -151,3 +154,9 @@ INTERNAL_IPS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')            #實際fiLE地點
 MEDIA_URL = '/media/'                           #浏览器访问時 去的URL
+
+
+MESSAGE_TAGS = {                    #constant所以大草
+    messages.ERROR: "danger",           #danger: boostrap color
+    messages.SUCCESS: "success",
+}

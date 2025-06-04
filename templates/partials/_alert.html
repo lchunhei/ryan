@@ -1,0 +1,20 @@
+{% if messages %}               <!--message係前面-->
+
+<!--message-->
+{% for message in messages %}           <!--dont know how many error he has-> use loop ; capture all login data field to message-->
+<div class='container' id='message'>
+    <div class='alert alert-{{message.tags}} alert-dismissible text-center' role='alert'>  <!--boostrap alert box-->
+        <button class='close' type='button' data-dismiss='alert'>           <!--no need wait 2sec, close button=dismiss-->
+            <span aria-hidden='true'>&times;</span>                 <!--&times;=交差button-->
+        </button>
+        <strong>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}   <!--左=出咩level(success/error)； 右係default個邊幾種msg level-->
+            Error : {% else %}
+            {{message.tags | title}}{% endif %}                 <!--因為login完去index,index有huminze-->
+        </strong> {{message}}
+    </div>
+</div>
+
+{% endfor %}
+
+{% endif %}

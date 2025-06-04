@@ -35,12 +35,12 @@
                 <div class="col-md-4 mb-3">
                   <label class="sr-only">District</label>
                   <select name="district" class="form-control">
-                    <option {% if not values.district %} selected="true" {% endif %} value='' disabled="disabled">        <!--if no seleciton(no value) =true著灰;；；；=empty space-->
+                    <option {% if not values.district %} selected="true" {% endif %} value='' disabled="disabled">        <!--if no seleciton(no value)-> select true(有剔）；=empty space-->
                       Districts (All)
                     </option>       
                     {% for key,value in district_choices.items %}    <!--.items=抽tuple, call item return {};-->
                     <option value="{{key}}" {% if key == values.district %} selected='true' {% endif %}>  {{value}} </option>    <!--用key草database, display value; 用'{{key}}'=Kowloon+City-->
-                     {% endfor %}          <!--上面key go back dict == web's value -->                                   <!--上面if key==value -> 著燈意思有個剔-->
+                    {% endfor %}          <!--上面key go back dict == web's value -->                                   <!--上面if key==value ->  著燈意思有個剔-->
                   </select>
                 </div>
               </div>
@@ -49,7 +49,7 @@
                 <div class="col-md-6 mb-3">
                   <label class="sr-only">Bedrooms</label>
                   <select name="bedrooms" class="form-control">
-                    <option {% if not values.bedrooms %} selected="true" {% endif %} value='' disabled="disabled">
+                    <option {% if not values.bedrooms %} selected="true" {% endif %} value='' >
                       Bedrooms (Any)
                     </option>
                     {% for key,value in bedroom_choices.items %} 
@@ -60,7 +60,7 @@
 
                 <div class="col-md-6 mb-3">
                   <select name="price" class="form-control">
-                    <option {% if not values.price %} selected="true" {% endif %} value='' disabled="disabled">
+                    <option {% if not values.price %} selected="true" {% endif %} value='' >
                       Max Price (All)
                     </option>
                     {% for key,value in price_choices.items %} 

@@ -21,19 +21,21 @@
             <li {% if 'about' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %}>
               <a class="nav-link" href= {% url "pages:about" %} >About</a>   <!--done-->
             </li>
-            <li class="nav-item mr-3">
+            <li {% if 'listings' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %}>
               <a class="nav-link" href= {% url "listings:listings" %} >Featured Listings</a>    <!--fix the link later-->
             </li>
           </ul>
 
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item mr-3">
-              <a class="nav-link" href="register.html"> <!--fix the link later-->
+            <li {% if 'register' in request.path %} class="nav-item active mr-3" {% else %}
+            class="nav-item mr-3" {% endif %}>                                        <!-- if 有'register'著-->
+              <a class="nav-link" href={% url 'accounts:register' %}> <!--fix the link later-->
                 <i class="fas fa-user-plus"></i> Register</a
               >
             </li>
-            <li class="nav-item mr-3">
-              <a class="nav-link" href="login.html">    <!--fix the link later-->
+            <li {% if 'login' in request.path %} class="nav-item active mr-3" {% else %}
+            class="nav-item mr-3" {% endif %}>
+              <a class="nav-link" href={% url 'accounts:login' %}>    <!--fix the link later-->
                 <i class="fas fa-sign-in-alt"></i>
 
                 Login</a

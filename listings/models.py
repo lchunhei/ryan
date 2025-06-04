@@ -1,6 +1,6 @@
 from django.db import models
 from realtors.models import Realtor
-
+from listings.choices import district_choices               #field可以選擇
 # Create your models here.
 
 class Listing(models.Model):
@@ -10,7 +10,7 @@ class Listing(models.Model):
     price = models.IntegerField()                               
     address = models.CharField(max_length=200)
     street = models.CharField(max_length=200)
-    district = models.CharField(max_length=50)
+    district = models.CharField(max_length=50, choices=district_choices.items())        #field可以選擇
     description = models.TextField(blank=True)                  #長文本
     bedrooms = models.IntegerField()
     bathrooms = models.DecimalField(max_digits=2, decimal_places=1)
