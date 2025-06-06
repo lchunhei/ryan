@@ -40,7 +40,7 @@ def contact(request):
 
 
 def delete_contact(request,contact_id):                        #del完back to dashboard
-    contact = get_object_or_404(Contact, pk=contact_id)
+    contact = get_object_or_404(Contact, pk=contact_id)        #db搵相對contact id -> to contact
     contact.delete()
     return redirect('accounts:dashboard')
 

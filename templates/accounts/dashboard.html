@@ -51,8 +51,9 @@
                   <td>{{contact.id}}</td>
                   <td>{{contact.listing}}</td>    <!--in contact called named listing-->
                   <td>
-                    <a class="btn btn-light" href='{% url 'listings:listing' contact.listing.id %}'>View Listing</a>  <!--go to listing id-->
-                    <a class='btn btn-danger' href='{% url 'contacts:delete_contact' contact.id %}'> Delete Lising </a>
+                    <a class="btn btn-light" data-url='{% url 'listings:listing' contact.listing.id %}'>View Listing</a>  <!--go to listing id-->
+                    <a class='btn btn-danger' data-url='{% url 'contacts:delete_contact' contact.id %}' 
+                    data-toggle='modal' data-target='#deleteConfirmModal' data-id='{{ contact.id }}'> Delete Lising </a>
                     <a class='btn btn-sucess' href='{% url 'contacts:edit_contact' contact.id %}'> Edit Lising </a>
                   </td>
                 </tr>
@@ -66,6 +67,27 @@
       </div>
     </section>
 
+   <!-- Inquiry Modal -->
+    <div class="modal fade" id="deleteConfirmModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteConfirmModal">Confirm Delete</h5>
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p> Are you sure you want to delete this listing? </p>
+
+            <a id='confirmDeleteBtn' class='btn btn-danger' href=''>
+              Yes
+            </a>
+            <button class='btn btn-info' data-dismiss='modal'>Cancel </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 {% endblock %}
