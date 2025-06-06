@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect          #django既lib，係virtualen拎
 from django.contrib import messages, auth
 from django.contrib.auth.models import User         #自己做user profile先可以多D data field, django only只有下面
+from contacts.models import Contact
 # Create your views here.
 
 
@@ -58,6 +59,8 @@ def logout(request):
 
 
 def dashboard(request):
+    user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)   #order_by無所謂；db's user_id = 當前userid
+    context = {'contacts' : user_contacts}
     return render (request, 'accounts/dashboard.html')
 
 

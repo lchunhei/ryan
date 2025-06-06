@@ -32,7 +32,7 @@
             <li {% if 'dashboard' in request.path %} class="nav-item active mr-3" {% else %}
             class="nav-item mr-3" {% endif %}>                                        <!-- if url 有'dashboard'字-->
               <a class="nav-link" href={% url 'accounts:dashboard' %}> Wellcome {{user.username}}(Dashboard)</a>        <!--{user.username} 係venv django入面-->
-            </li>
+            </li> 
 
             <!--Logout -->
             <li class='nav-item mr-3'>

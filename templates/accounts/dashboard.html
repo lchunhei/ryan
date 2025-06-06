@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+{% load humanize%}
 {% block content %}
+{% block title %} | {{user.first_name}} {% endblock title %} <!--block title-->
 
 
 
@@ -27,12 +29,13 @@
         </nav>
       </div>
     </section>
-
-    <section id="dashboard" class="py-4">
+    {% include 'partials/_alert.html' %}
+    <section id="dashboard" class="py-4">   
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h2>Welcome John</h2>
+            <h2>Welcome {{user.first_name | title }}</h2>     <!--已知login,no need auth again-->
+            {% if conatacts %}                    
             <p>Here are the property listings that you have inquired about</p>
             <table class="table">
               <thead>
@@ -43,29 +46,21 @@
                 </tr>
               </thead>
               <tbody>
+                {% for contact in contacts %}
                 <tr>
-                  <td>22</td>
-                  <td>45 Prince Street</td>
+                  <td>{{contact.id}}</td>
+                  <td>{{contact.listing}}</td>    <!--in contact called named listing-->
                   <td>
-                    <a class="btn btn-light" href="#">View Listing</a>
+                    <a class="btn btn-light" href='{% url 'listings:listing' contact.listing.id %}'>View Listing</a>  <!--go to listing id-->
+                    <a class='btn btn-danger' href='{% url 'contacts:delete_contact' contact.id %}'> Delete Lising </a>
+                    <a class='btn btn-sucess' href='{% url 'contacts:edit_contact' contact.id %}'> Edit Lising </a>
                   </td>
                 </tr>
-                <tr>
-                  <td>43</td>
-                  <td>22 Westbrook rd</td>
-                  <td>
-                    <a class="btn btn-light" href="#">View Listing</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>31</td>
-                  <td>12 Samson Ave</td>
-                  <td>
-                    <a class="btn btn-light" href="#">View Listing</a>
-                  </td>
-                </tr>
+                {% endfor %}
+
               </tbody>
             </table>
+            {% endif %}
           </div>
         </div>
       </div>

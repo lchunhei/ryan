@@ -1,6 +1,7 @@
 {% extends "base.html"%} {% block content %}     
 {% load static %}
 {% load humanize %}
+{% block title %} | {{listing.title}} {% endblock title %} <!--block title-->
 
 
     <section id="showcase-inner" class="py-5 text-white">
@@ -31,6 +32,7 @@
       </div>
     </section>
 
+    {% include 'partials/_alert.html' %}
     <!-- Listing -->
     <section id="listing" class="py-4">
       <div class="container">
@@ -222,7 +224,17 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form action = {% url 'contacts:contact' %} method='POST'>     <!--add endpoint-->
+              {% csrf_token %}                                            <!--add token-->
+              <input type="hidden" name='listing_id' value='{{listing.id}}' />
+              <input type="hidden" name='realtor_email' value='{{listing.realtor.email}}'/>
+              
+              {% if user.is.authenticated %}
+              <input type="hidden" name='user_id' value='{{user.id}}'/>     <!--如有=user_id-->
+              {% else %}
+              <input type="hidden" name='user_id' value='0' />          <!-- 如無user_id = 0 -->
+              {% endif %}
+
               <div class="form-group">
                 <label for="property_name" class="col-form-label"
                   >Property:</label
@@ -231,13 +243,14 @@
                   type="text"
                   name="listing"
                   class="form-control"
-                  value="45 Prince Street"
-                  disabled
-                />
+                  value= "{{listing.title | title }}"
+                  readonly                                              
+                />                                  <!--disabled = dont accept itput, so  change to readonly-->
               </div>
               <div class="form-group">
                 <label for="name" class="col-form-label">Name:</label>
-                <input type="text" name="name" class="form-control" required />
+                <input type="text" name="name" class="form-control" {% if user.is.authenticated %} 
+                value='{{user.first_name}}{{user.last_name}}' readonly {% endif %}/>
               </div>
               <div class="form-group">
                 <label for="email" class="col-form-label">Email:</label>
@@ -245,8 +258,7 @@
                   type="email"
                   name="email"
                   class="form-control"
-                  required
-                />
+                  {% if user.is.authenticated %} value='{{user.email}}' readonly {% endif %}/>                                      <!--required -->
               </div>
               <div class="form-group">
                 <label for="phone" class="col-form-label">Phone:</label>

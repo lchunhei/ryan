@@ -24,7 +24,7 @@ def search(request):
     queryset_list = Listing.objects.order_by('-list_date')           #拎data; 不會exe, 直至有list/{}->先做野[from sql to vari]
                                                                         #地址顯示&keyword=value  會用request object function
     if 'keywords' in request.GET:                                   #'keywords' related to search.html ; if 佢有輸入＝個variable keywords有野      
-        keywords = request.GET['keywords']                          #-> 拎value
+        keywords = request.GET['keywords']                          #-> .GET＝拎web佢輸入
         if keywords:                                                   #如有野先下一步
             queryset_list = queryset_list.filter(description__icontains=keywords)    #用description=fied; icontain=有依個字 
     

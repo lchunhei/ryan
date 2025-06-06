@@ -35,7 +35,7 @@
                 <div class="col-md-4 mb-3">
                   <label class="sr-only">District</label>
                   <select name="district" class="form-control">
-                    <option {% if not values.district %} selected="true" {% endif %} value='' disabled="disabled">        <!--if no seleciton(no value)-> select true(有剔）；=empty space-->
+                    <option {% if not values.district %} selected="true" {% endif %} value=''>        <!--if no seleciton(no value)-> select true(有剔）；=empty space-->
                       Districts (All)
                     </option>       
                     {% for key,value in district_choices.items %}    <!--.items=抽tuple, call item return {};-->
